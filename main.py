@@ -1,7 +1,5 @@
-from programa import menu as men
-
-def main():
-    men.menuP()
+from application import user_management as um
 
 if __name__ == '__main__':
-    main()
+    runapp = um.UserManagement
+    runapp.runapp()
