@@ -45,7 +45,11 @@ class UserManagement:
                                         self.registrator.deleteById(numberInput)
                         elif option == "4":
                                 os.system("cls")
-                                self.registrator.updateUser()
+                                cantUser = self.registrator.allUser()
+                                if cantUser is None:
+                                        pass
+                                else:
+                                        self.registrator.updateUser()
                         elif option == "5":
                                 os.system("cls")
                                 print(chr(27) + "[1;36m" + "Hasta luego fue un gusto poder ayudarte")
