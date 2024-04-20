@@ -1,4 +1,5 @@
-from application import registrator as reg
+from application.registrator import Registrator 
+from application.connection import Connection
 
 import os
 
@@ -14,8 +15,9 @@ import os
 
 
 class UserManagement:
-    def __init__(self, registrator: reg.Registrator):
+    def __init__(self, registrator: Registrator):
         self.registrator = registrator
+        
 
     def runapp(self):  # Se debe agregar el parámetro self para que la función pueda ser llamada desde una instancia de la clase.
         while True:
@@ -46,7 +48,7 @@ class UserManagement:
             elif option == 5:
                 os.system("cls")
                 print(chr(27) + "[1;36m" + "Hasta luego fue un gusto poder ayudarte")
-                bd.connectBD.closeConectDB # De donde llega bd.connectBD? No se ha importado en este archivo.
+                self.registrator.connection.close_connect_db() # De donde llega bd.connectBD? No se ha importado en este archivo.
                 break
             else:
                 os.system("cls")
