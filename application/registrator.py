@@ -74,26 +74,29 @@ class Registrator:
             
                         
     def updateUser(self):
-                #Inicio del proceso
                 os.system("cls")
                 self.allUser()
-                print("")
-                id = input(chr(27)+"[0;34m"+"Ingresa el Id del usuario a actualizar: ")
-                if id.isalnum():
-                    id = int(id)
-                    newData =input("Ingresa el valor para actualizar: ")
-                    print("")
-                    result = self.connection.execute_query(f"SELECT id, name FROM users where id = {id};")
-                    if len(result)==1:
-                        result2 = self.connection.execute_query(f"SELECT name FROM users where name = '{newData}';")
-                        if len(result2)>0:
-                                print(chr(27)+"[3;31m"+f"El nombre {newData} ya existe, por favor validar\n")
-                        else:
-                                self.connection.execute_query(f"UPDATE USERS SET NAME = '{newData}' where id = {id}")
-                                print(chr(27)+"[3;31m"+f"Se actualizó {result[0][1]} por {newData} para el id {id} correctamente")
-                                print("")
-                    else:
-                        print(chr(27)+"[3;31m"+f"Id {id} no existe\n")
+                result = self.connection.execute_query("SELECT * FROM USERS")
+                if  (result is None) or (len(result)<1):
+                    return
                 else:
-                    print("No haz ingresado un id valido, por favor validar")
-                    pass
+                    try:
+                        print("")
+                        id = input(chr(27)+"[0;34m"+"Ingresa el Id del usuario a actualizar: ")
+                        if id.isalnum():
+                            id = int(id)
+                            newData =input("Ingresa el valor para actualizar: ")
+                            print("")
+                            result = self.connection.execute_query(f"SELECT id, name FROM users where id = {id};")
+                            if len(result)==1:
+                                result2 = self.connection.execute_query(f"SELECT name FROM users where name = '{newData}';")
+                                if len(result2)>0:
+                                        print(chr(27)+"[3;31m"+f"El nombre {newData} ya existe, por favor validar\n")
+                                else:
+                                        self.connection.execute_query(f"UPDATE USERS SET NAME = '{newData}' where id = {id}")
+                                        print(chr(27)+"[3;31m"+f"Se actualizó {result[0][1]} por {newData} para el id {id} correctamente")
+                                        print("")
+                            else:
+                                print(chr(27)+"[3;31m"+f"Id {id} no existe\n")
+                    except Exception as e:
+                        print(f"Error al tratar de actualizar el Id {id} con error {e}")
