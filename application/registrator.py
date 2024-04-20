@@ -44,30 +44,34 @@ class Registrator:
                 print(chr(27)+"[0;32m"+f"Usuarios registrados:\n")
                 print(tabulate(user_register, headers=['Id','Usuario'],tablefmt='fancy_grid'))
                 print("")
-
-    def deleteById(self, id):
-        numbers = ["0","1","2","3","4","5","6","7","8","9"]
-        result = ""
-        for a in id:
-            if (a in numbers) == False:
-                return
             else:
-                result+=a
-        id=result
-        result = self.connection.execute_query(f"SELECT ID, NAME FROM USERS WHERE id = {id}")
-        if len(result)<1:
-            print(f"El {id} no se encuentra registrado en el sistemas por favor validar\n")
+                return user_register
+
+    def deleteById(self):
+        self.allUser()
+        result = self.connection.execute_query("SELECT * FROM USERS")
+        if  (result is None) or (len(result)<1):
+            return
         else:
-            print(chr(27)+"[3;31m"+f"Esta seguro que deseas eliminar el Id {result[0][0]} para el usuario {result[0][1]}")
-            print("")
-            resp = input("Ingresa 1)Si / 2)No: \n")
-            if resp.isalnum():
-                if resp == "1":
-                    self.connection.execute_query(f"DELETE FROM USERS WHERE ID = {id}")
-                    print(f"Se eliminó el Id {result[0][0]} para el usuario {result[0][1]}\n")
+            try:
+                id=input("Ingres el número de ID a eliminar: ")
+                resulta = self.connection.execute_query(f"SELECT ID, NAME FROM USERS WHERE id = {id}")
+                if len(resulta)<1:
+                    print(f"El {id} no se encuentra registrado en el sistemas por favor validar\n")
                 else:
-                    print(f"No se eliminó el {id} de la tabla")
-                    os.system("cls")
+                    print(chr(27)+"[3;31m"+f"Esta seguro que deseas eliminar el Id {result[0][0]} para el usuario {result[0][1]}")
+                    print("")
+                    resp = input("Ingresa 1)Si / 2)No: \n")
+                    if resp.isalnum():
+                        if resp == "1":
+                            self.connection.execute_query(f"DELETE FROM USERS WHERE ID = {id}")
+                            print(f"Se eliminó el Id {result[0][0]} para el usuario {result[0][1]}\n")
+                        else:
+                            print(f"No se eliminó el {id} de la tabla")
+                            os.system("cls")
+            except Exception as e:
+                return print(f"Error al intentar eliminar con error: {e}")
+            
                         
     def updateUser(self):
                 #Inicio del proceso

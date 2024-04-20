@@ -27,34 +27,28 @@ class UserManagement:
                 "1) Para registrar usuario\n2) Consultar usuarios registrados\n3) Eliminar usuario\n4) Actualizar usuario\n5) Salir")
                 print(f"{10 * '*'}*******************{10 * '*'}")
                 option = input("Ingresa el número: ")
-                if option.isalnum():
-                        if option == "1":
-                                #os.system("cls")
-                                user = input("Ingresa el nombre del usuario: ")
-                                self.registrator.registerUser(user)
-                        elif option == "2":
-                                self.registrator.allUser()
-                        elif option == "3":
-                                os.system("cls")
-                                print("Usuarios registrados en sistema: \n")
-                                cantUser = self.registrator.allUser()
-                                if cantUser is None:
-                                        pass
-                                else:
-                                        numberInput = input("Ingresa el número de id del usuario a eliminar:")
-                                        self.registrator.deleteById(numberInput)
-                        elif option == "4":
-                                os.system("cls")
-                                cantUser = self.registrator.allUser()
-                                if cantUser is None:
-                                        pass
-                                else:
-                                        self.registrator.updateUser()
-                        elif option == "5":
-                                os.system("cls")
-                                print(chr(27) + "[1;36m" + "Hasta luego fue un gusto poder ayudarte")
-                                self.registrator.connection.close_connect_db() # De donde llega bd.connectBD? No se ha importado en este archivo.
-                                break
+                if option == "1":
+                        os.system("cls")
+                        user = input("Ingresa el nombre del usuario: ")
+                        self.registrator.registerUser(user)
+                elif option == "2":
+                        os.system("cls")
+                        self.registrator.allUser()
+                elif option == "3":
+                        os.system("cls")
+                        self.registrator.deleteById()
+                elif option == "4":
+                        os.system("cls")
+                        cantUser = self.registrator.allUser()
+                        if cantUser is None:
+                                pass
                         else:
-                                os.system("cls")
-                                print("Opción no valida\n")            
+                                self.registrator.updateUser()
+                elif option == "5":
+                        os.system("cls")
+                        print(chr(27) + "[1;36m" + "Hasta luego fue un gusto poder ayudarte")
+                        self.registrator.connection.close_connect_db() # De donde llega bd.connectBD? No se ha importado en este archivo.
+                        break
+                else:
+                        os.system("cls")
+                        print("Opción no valida\n")            
