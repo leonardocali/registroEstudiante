@@ -38,7 +38,7 @@ class UserManagement:
                                 os.system("cls")
                                 print("Usuarios registrados en sistema: \n")
                                 cantUser = self.registrator.allUser()
-                                if cantUser == 'NoneType':
+                                if cantUser is None:
                                         pass
                                 else:
                                         numberInput = input("Ingresa el número de id del usuario a eliminar:")
